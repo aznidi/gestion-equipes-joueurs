@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\convertisseurController;
 use App\Http\Controllers\EquipesController;
 use App\Http\Controllers\HomeController;
@@ -50,5 +51,17 @@ Route::get('/equipes/{id}', [EquipesController::class, 'show'])->name('equipes.s
 Route::get('/equipes/{id}/edit', [EquipesController::class, 'edit'])->name('equipes.edit');
 Route::put('/equipes/{id}/edit', [EquipesController::class, 'update'])->name('equipes.update');
 Route::delete('/equipes/{id}/', [EquipesController::class, 'destroy'])->name('equipes.destroy');
+
+
+
+
+// Authentification
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('showLoginForm');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 
