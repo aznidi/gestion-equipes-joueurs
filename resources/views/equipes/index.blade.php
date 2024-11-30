@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <div class="relative overflow-x-auto sm:rounded-lg mt-3">
+    <div class="relative z-0 sm:rounded-lg mt-3">
         <table class="w-full text-sm text-left text-gray-900 bg-white">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>

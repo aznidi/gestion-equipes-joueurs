@@ -30,13 +30,20 @@
         <div class="p-10 m-10 mt-9 flex justify-center items-center shadow-sm rounded-md">
             <div class="p-5 m-5 text-2xl font-semibold">
                 <p>
-                    Email :
+                    @auth
+                        Email :
+                    @endauth
+
                 </p>
             </div>
 
             <div class="p-5 m-5 text-2xl ">
                 <p>
+                    @auth
                     {{Auth::user()->email}}
+                    @endauth
+
+
                 </p>
             </div>
         </div>
