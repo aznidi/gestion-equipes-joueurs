@@ -48,6 +48,57 @@
             </table>
         </div>
 
+
+
+
+
+
+
+
+
+        <div class="flex items-center justify-between mt-10 ">
+            <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight
+            text-gray-900 md:text-3xl lg:text-4xl dark:text-dark">
+                Liste des joueurs pour
+                    <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">
+                        {{ $team['nom'] ?? 'Indisponible' }}</mark>
+
+            </h1>
+        </div>
+
+        <div class="relative z-0 sm:rounded-lg mt-3">
+            <table class="w-full text-sm text-left text-gray-900 bg-white">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">ID Joueur</th>
+                        <th scope="col" class="px-6 py-3">Nom</th>
+                        <th scope="col" class="px-6 py-3">Date de naissance</th>
+                        <th scope="col" class="px-6 py-3">Nationalite</th>
+                        <th scope="col" class="px-6 py-3">Date de contrat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @isset($players)
+                        @foreach ( $players as $player)
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900">{{ $player['id'] }}</th>
+                                <td class="px-6 py-4">{{ $player['nom'] }}</td>
+                                <td class="px-6 py-4">{{ $player['date_naissance'] }}</td>
+                                <td class="px-6 py-4">{{ $player['nationalite'] }}</td>
+                                <td class="px-6 py-4">{{ $player['date_contrat'] }}</td>
+                            </tr>
+                        @endforeach
+
+                    @else
+                        <tr class="bg-white border-b hover:bg-gray-100">
+                            <!-- Cette cellule va s'étendre sur toutes les colonnes de la table -->
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Il n'y a pas d'équipes disponibles.</td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
 @endsection

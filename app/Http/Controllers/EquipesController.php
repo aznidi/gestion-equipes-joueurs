@@ -43,7 +43,11 @@ class EquipesController extends Controller
     public function show(int $id)
     {
         $equipe = Equipe::where('id', $id)->first();
-        return view('equipes.show')->with('team', $equipe);
+        $joueurs = $equipe->joueurs;
+        return view('equipes.show')->with([
+            'team' => $equipe,
+            'players' => $joueurs,
+        ]);
     }
 
     /**
