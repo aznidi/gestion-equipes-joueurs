@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Gestion des equipes') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -21,6 +21,15 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        .navbar-link:hover {
+
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-mobile-menu {
+            transition: transform 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -30,93 +39,33 @@
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <!-- Logo -->
                 <a class="text-xl font-bold" href="{{ url('/') }}">
-                    @if (!Auth::check())
-                        Gestion des devoirs .
-                    @endif
-                    @if (Auth::check())
-                        {{Auth::user()->name}}
-                    @endif
-
+                    Gestion des Equipes
                 </a>
 
                 <!-- Navigation Links -->
-                @auth
-                    <div class="hidden md:flex space-x-8"> <!-- Espace augmenté ici -->
-                        <!-- Dropdown Devoirs -->
-                        <div class="relative group">
-                            <a class="font-medium cursor-pointer hover:text-blue-300">Devoirs</a>
-                            <div class="absolute hidden group-hover:block bg-white text-gray-800 shadow-lg rounded-md mt-2 w-40">
-                                <a class="block hover:bg-gray-200 py-2 px-4" href="{{ route('imc') }}">Calcul IMC</a>
-                                <a class="block hover:bg-gray-200 py-2 px-4" href="{{ route('pret') }}">Cacule pret</a>
-                                <a class="block hover:bg-gray-200 py-2 px-4" href="{{ route('convertisseur') }}">Convertisseur</a>
-                                <a class="block hover:bg-gray-200 py-2 px-4" href="{{ route('reservation') }}">Reservation</a>
-                                <a class="block hover:bg-gray-200 py-2 px-4" href="{{ route('equipes.index') }}">Crud Equipes</a>
-                            </div>
-                        </div>
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button type="submit" class="font-medium text-red-400 hover:text-red-600">
-                                Logout
-                            </button>
-                        </form>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a class="navbar-link py-2 px-4 hover:text-gray-300 rounded-md hover:bg-blue-800" href="{{ route('home') }}">Acceuil</a>
+                    <a class="navbar-link py-2 px-4 hover:text-gray-300 rounded-md hover:bg-blue-800" href="{{ route('equipes.index') }}">Gestion des Equipes</a>
+                    <a class="navbar-link py-2 px-4 hover:text-gray-300 rounded-md hover:bg-blue-800" href="{{ route('joueurs.index') }}">Gestion des Joueurs</a>
+                </div>
 
-                    </div>
-
-                    <!-- Mobile Menu Button -->
-                    <button id="menu-btn" class="md:hidden focus:outline-none">
-                        <svg id="menu-icon" class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path id="menu-open" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                            <path id="menu-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden focus:outline-none">
+                    <svg id="menu-icon" class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path id="menu-open" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        <path id="menu-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-            @endauth
 
-
-                <!-- Mobile Menu -->
-            @auth
-            <div id="mobile-menu" class="hidden md:hidden bg-gray-50">
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="navbar-mobile-menu hidden md:hidden bg-gray-50 transition-transform transform -translate-y-4">
                 <div class="py-2 px-4">
-                    <div class="font-medium text-gray-800">Devoirs</div>
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ route('imc') }}">Calcul IMC</a>
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ route('pret') }}">Cacule pret</a>
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ route('convertisseur') }}">Convertisseur</a>
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ route('reservation') }}">Reservation</a>
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ route('equipes.index') }}">Crud Equipes</a>
-
+                    <a class="navbar-link block py-2 px-4 text-gray-600 hover:bg-gray-200" href="{{ route('home') }}">Acceuil</a>
+                    <a class="navbar-link block py-2 px-4 text-gray-600 hover:bg-gray-200" href="{{ route('equipes.index') }}">Gestion des Equipes</a>
+                    <a class="navbar-link block py-2 px-4 text-gray-600 hover:bg-gray-200" href="{{ route('joueurs.index') }}">Gestion des Joueurs</a>
                 </div>
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button type="submit" class="font-medium text-red-400 hover:text-red-600">
-                        Logout
-                    </button>
-                </form>
             </div>
-
-            @endauth
-
-            @guest
-                <div class="hidden md:flex space-x-8"> <!-- Espace augmenté ici -->
-                        <!-- Dropdown Devoirs -->
-                        <div class="relative group">
-                        <a class="font-medium hover:text-blue-300" href="{{ url('/login') }}">Login</a>
-                    </div>
-
-                    <!-- Mobile Menu Button -->
-                    <button id="menu-btn" class="md:hidden focus:outline-none">
-                        <svg id="menu-icon" class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path id="menu-open" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                            <path id="menu-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                    <!-- Mobile Menu -->
-                <div id="mobile-menu" class="hidden md:hidden bg-gray-50">
-                    <a class="block text-gray-600 hover:bg-gray-200 py-2 px-4" href="{{ url('/login') }}">Login</a>
-                </div>
-            @endguest
-
         </nav>
 
         <!-- Main Content -->
@@ -131,7 +80,13 @@
             const mobileMenu = document.getElementById('mobile-menu');
             const menuOpenIcon = document.getElementById('menu-open');
             const menuCloseIcon = document.getElementById('menu-close');
+
+            // Toggle the visibility of the mobile menu
             mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('transform');
+            mobileMenu.classList.toggle('translate-y-0'); // Slide in from the top
+
+            // Toggle icons
             menuOpenIcon.classList.toggle('hidden');
             menuCloseIcon.classList.toggle('hidden');
         });
